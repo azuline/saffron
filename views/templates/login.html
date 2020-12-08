@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="flex items-center h-full">
+  <div class="flex flex-col w-full">
+    {% if error %}
+      <div class="w-full max-w-2xl mx-4 mb-4 text-center sm:mx-auto sm:w-10/12">
+        <span class="font-medium text-red-500">{{ error }}</span>
+      </div>
+    {% endif %}
+    <form
+      method="POST"
+      action="/login"
+      class="flex w-full max-w-2xl mx-4 shadow sm:mx-auto sm:w-10/12"
+    >
+      <input
+        name="token"
+        autofocus
+        class="flex-1 px-6 py-2"
+        placeholder="Authorization token"
+      />
+      <button class="w-20 py-2 bg-blue-500" type="submit">Go</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

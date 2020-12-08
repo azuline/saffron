@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>fragrance</title>
+    <link
+      href="/static/index.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body class="bg-gray-50">
+    <div class="w-full px-8 md:px-16">
+      {% include "header.html" %}
+      <div class="my-8 content">
+        {% block content %}
+        {% endblock content %}
+      </div>
+      {% include "footer.html" %}
+    </div>
+  </body>
+</html>
