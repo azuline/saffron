@@ -13,11 +13,15 @@ impl Responder for Template {
     fn respond_to(self, req: &HttpRequest) -> Self::Future {
         let tmpl = req.app_data::<Data<Tera>>().unwrap();
 
-        let response = match tmpl.render(self.0, &self.1) {
+        ready(self.render(tmpl))
+    }
+}
+
+impl Template {
+    pub fn render(self, tmpl: &Data<Tera>) -> Result<HttpResponse, Error> {
+        match tmpl.render(self.0, &self.1) {
             Ok(html) => Ok(HttpResponse::Ok().content_type("text/html").body(html)),
             _ => Err(ErrorInternalServerError("Template error.")),
-        };
-
-        ready(response)
+        }
     }
 }
