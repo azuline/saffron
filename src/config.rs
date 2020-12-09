@@ -4,7 +4,7 @@ use std::{env, fs, path::PathBuf};
 
 #[derive(Debug, Clone)]
 pub struct Config {
-    pub upload_directory: PathBuf,
+    pub upload_dir: PathBuf,
     pub db_pool: SqlitePool,
     pub host_url: String,
     pub secret_key: Vec<u8>,
@@ -37,7 +37,7 @@ impl Config {
         let secret_key = secret_key::get_or_create(&db_pool).await;
 
         Self {
-            upload_directory,
+            upload_dir: upload_directory,
             db_pool,
             host_url,
             secret_key,

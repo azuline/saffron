@@ -9,6 +9,10 @@ for Rust and a bit of web design. Maintenance and stability are not guaranteed.
 
 I'll see if I can publish this to `crates.io` later...
 
+We'll need a way to include the built CSS, but I don't want to check it into
+VCS because dev-version CSS would override it. Perhaps a CI to ensure that CSS
+is prod css?
+
 ## Usage
 
 - Run `fragrance user create <username>` to add a user.

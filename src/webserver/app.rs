@@ -18,7 +18,7 @@ pub async fn start(opts: Start, config: Config) -> std::io::Result<()> {
 
     HttpServer::new(move || {
         let tera = Tera::new(templates_dir).unwrap();
-        let upload_dir = config.upload_directory.to_str().unwrap();
+        let upload_dir = config.upload_dir.to_str().unwrap();
 
         App::new()
             .data(tera)
@@ -38,6 +38,7 @@ pub async fn start(opts: Start, config: Config) -> std::io::Result<()> {
             .service(routes::login)
             .service(routes::take_login)
             .service(routes::take_logout)
+            .service(routes::take_upload)
     })
     .bind(bind_addr)?
     .run()
