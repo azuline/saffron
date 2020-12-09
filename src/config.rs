@@ -34,7 +34,7 @@ impl Config {
 
         migrate!("./migrations").run(&db_pool).await.unwrap();
 
-        let secret_key = secret_key::get_or_create();
+        let secret_key = secret_key::get_or_create(&db_pool).await;
 
         Self {
             upload_directory,
