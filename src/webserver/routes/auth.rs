@@ -38,10 +38,7 @@ pub async fn take_login(
             let session = Session::from_user(&user);
             id.remember(serde_json::to_string(&session).unwrap());
 
-            let mut context = Context::new();
-            context.insert("user", &session);
-
-            return Either::A(Template("index.html", context));
+            return Either::B(HttpResponse::Found().header("Location", "/").finish());
         }
     }
 
@@ -54,5 +51,5 @@ pub async fn take_login(
 #[post("/logout")]
 pub async fn take_logout(id: Identity) -> HttpResponse {
     id.forget();
-    HttpResponse::Found().header("Location", "/").finish()
+    HttpResponse::Found().header("Location", "/login").finish()
 }

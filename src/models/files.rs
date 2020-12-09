@@ -1,7 +1,8 @@
 use chrono::naive::NaiveDateTime;
+use serde::Serialize;
 use sqlx::{sqlite::SqliteRow, FromRow, Row, SqlitePool};
 
-#[derive(FromRow, Debug)]
+#[derive(FromRow, Serialize, Debug)]
 pub struct File {
     pub id: i64,
     pub filename: String,
@@ -33,6 +34,7 @@ impl File {
         .await
         .ok()
     }
+
     pub async fn from_filename(db_pool: &SqlitePool, filename: &str) -> Option<Self> {
         sqlx::query(
             r#"
@@ -55,6 +57,32 @@ impl File {
         .fetch_one(db_pool)
         .await
         .ok()
+    }
+
+    pub async fn all_of_user(
+        db_pool: &SqlitePool,
+        user_id: i64,
+    ) -> Result<Vec<Self>, sqlx::Error> {
+        sqlx::query(
+            r#"
+                SELECT
+                    id,
+                    filename,
+                    uploader_id,
+                    uploaded_on
+                FROM files
+                WHERE uploader_id = $1
+            "#,
+        )
+        .bind(user_id)
+        .map(|row: SqliteRow| File {
+            id: row.get(0),
+            filename: row.get(1),
+            uploader_id: row.get(2),
+            uploaded_on: row.get(3),
+        })
+        .fetch_all(db_pool)
+        .await
     }
 
     pub async fn create(

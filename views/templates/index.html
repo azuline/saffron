@@ -1,5 +1,18 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <div>Hello world!</div>
+<div>
+  {% for file in files %}
+  <div class="flex">
+    <div class="flex-none w-8">{{ file.id }}</div>
+    <div class="flex-1">
+      <a href="/f/{{ file.filename }}">{{ file.filename }}</a>
+    </div>
+    <div class="flex-none ml-auto">
+      <span>on</span>
+      <span class="ml-2">{{ file.uploaded_on }}</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock content %}
