@@ -18,6 +18,7 @@ pub async fn start(opts: Start, config: Config) -> std::io::Result<()> {
 
     HttpServer::new(move || {
         let tera = Tera::new(templates_dir).unwrap();
+        let upload_dir = config.upload_directory.to_str().unwrap();
 
         App::new()
             .data(tera)
@@ -32,6 +33,7 @@ pub async fn start(opts: Start, config: Config) -> std::io::Result<()> {
             // Always wrap with Logger middleware last.
             .wrap(Logger::default())
             .service(fs::Files::new("/static", &static_dir))
+            .service(fs::Files::new("/f", upload_dir))
             .service(routes::index)
             .service(routes::login)
             .service(routes::take_login)

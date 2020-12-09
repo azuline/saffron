@@ -1,7 +1,7 @@
 use clap::Clap;
 
 #[derive(Clap)]
-#[clap(version = "0.1")]
+#[clap(about = "A little private file hosting service")]
 pub struct Commands {
     #[clap(subcommand)]
     pub command: Command,
