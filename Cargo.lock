@@ -987,7 +987,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "fragrance"
+name = "saffron"
 version = "0.1.0"
 dependencies = [
  "actix-files",

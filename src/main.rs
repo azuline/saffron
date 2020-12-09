@@ -1,8 +1,8 @@
 use clap::Clap;
 use dotenv::dotenv;
-use fragrance::commands::{Command, Commands};
-use fragrance::config::Config;
-use fragrance::{manage, webserver};
+use saffron::commands::{Command, Commands};
+use saffron::config::Config;
+use saffron::{manage, webserver};
 
 #[actix_web::main]
 async fn main() {

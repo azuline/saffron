@@ -1,4 +1,4 @@
-# fragrance
+# saffron
 
 A little private file hosting service.
 
@@ -15,17 +15,17 @@ is prod css?
 
 ## Usage
 
-- Run `fragrance user create <username>` to add a user.
-- Run `fragrance start` to start the webserver.
+- Run `saffron user create <username>` to add a user.
+- Run `saffron start` to start the webserver.
 
 To view the options in the CLI, use the `help` commands.
 
 ```
-fragrance
+saffron
 A little private file hosting service
 
 USAGE:
-    fragrance <SUBCOMMAND>
+    saffron <SUBCOMMAND>
 
 FLAGS:
     -h, --help       Prints help information
@@ -59,7 +59,7 @@ developer commands.
 ## License
 
 ```
-fragrance :: a little private file hosting service
+saffron :: a little private file hosting service
 
 Copyright (C) 2020 azuline
 
