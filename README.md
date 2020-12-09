@@ -15,6 +15,18 @@ A little private file hosting service.
 As of now, cloning the repository and running `cargo build` is the only method
 of installation.
 
+The frontend CSS must also be built, which requires `yarn`.
+
+```sh
+$ cd saffron
+$ cd views
+$ yarn install
+$ yarn build
+$ cd ..
+$ cargo build --release
+$ ./target/release/saffron  # Add/move this binary to PATH if you wish.
+```
+
 ## Configuration
 
 This application is configured via environment variables, documented below.
