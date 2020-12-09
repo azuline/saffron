@@ -19,8 +19,8 @@ impl Config {
 
         fs::create_dir_all(&upload_directory).unwrap();
 
-        let db_url = env::var("DATABASE_URL")
-            .expect("Database URL not configured in `.env` file.");
+        let db_url = env::var("DATABASE_URI")
+            .expect("Database URI not configured in `.env` file.");
         touch_database_file(&db_url);
 
         let db_pool = SqlitePoolOptions::new()
@@ -55,7 +55,7 @@ fn touch_database_file(db_url: &str) {
     let db_path = PathBuf::from(
         db_url
             .strip_prefix("sqlite://")
-            .expect("Invalid DATABASE_URL in `.env` file."),
+            .expect("Invalid DATABASE_URI in `.env` file."),
     );
 
     if db_path.exists() {
