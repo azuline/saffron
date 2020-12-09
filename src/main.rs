@@ -1,6 +1,6 @@
 use clap::Clap;
 use dotenv::dotenv;
-use fragrance::commands::{Command, Commands, User};
+use fragrance::commands::{Command, Commands};
 use fragrance::config::Config;
 use fragrance::{manage, webserver};
 
@@ -14,10 +14,6 @@ async fn main() {
 
     match commands.command {
         Command::Start(opts) => webserver::start(opts, config).await.unwrap(),
-        Command::User(subcommand) => match subcommand.command {
-            User::Create(opts) => manage::create_user(opts, config).await,
-            User::Reset(opts) => manage::reset_user(opts, config).await,
-            User::List => manage::list_users(config).await,
-        },
+        Command::User(subcommand) => manage::run(subcommand, config).await,
     }
 }

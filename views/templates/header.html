@@ -3,28 +3,27 @@
     <div class="flex-none py-4">
       <span class="mr-2 text-black">fragrance</span>
       {% if user %}
-      <span class="text-blue-500">~/{{ user.nickname }}</span>
+        <span class="text-blue-500">~/{{ user.nickname }}</span>
       {% else %}
-      <span class="text-blue-500">~/</span>
+        <span class="text-blue-500">~/</span>
       {% endif %}
     </div>
   </a>
   <div class="ml-auto">
     {% if user %}
-    <form method="POST" action="/logout">
-      <input name="csrf" type="hidden" value="{{ csrf_token }}" />
-      <button
-        title="logout"
-        type="submit"
-        class="flex rounded-sm items-center px-4 py-1.5 bg-gray-50 text-gray-700 shadow hover:bg-white"
-      >
-        <span class="mr-1 text-sm font-normal">Logout</span>
-      </button>
-    </form>
+      <form method="POST" action="/logout">
+        <button
+          title="logout"
+          type="submit"
+          class="flex rounded-sm items-center px-4 py-1.5 bg-gray-50 text-gray-700 shadow hover:bg-white"
+        >
+          <span class="mr-1 text-sm font-normal">Logout</span>
+        </button>
+      </form>
     {% else %}
-    <a class="px-4 py-1.5 bg-gray-50 rounded-sm shadow hover:bg-white" href="/login">
-      <span class="text-sm">Login</span>
-    </a>
+      <a class="px-4 py-1.5 bg-gray-50 rounded-sm shadow hover:bg-white" href="/login">
+        <span class="text-sm">Login</span>
+      </a>
     {% endif %}
   </div>
 </div>

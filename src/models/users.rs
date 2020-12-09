@@ -1,8 +1,9 @@
 use openssl::{memcmp, rand::rand_bytes};
+use serde::Serialize;
 use sodiumoxide::crypto::pwhash::argon2id13;
 use sqlx::{sqlite::SqliteRow, FromRow, Row, SqlitePool};
 
-#[derive(FromRow)]
+#[derive(FromRow, Serialize)]
 pub struct User {
     pub id: i64,
     pub nickname: String,

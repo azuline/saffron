@@ -1,12 +1,20 @@
-use crate::commands::{Create, Reset};
+use crate::commands::{Create, Reset, User, UserCommand};
 use crate::config::Config;
-use crate::models::{users, User};
+use crate::models::users;
 
-pub async fn create_user(opts: Create, config: Config) {
+pub async fn run(subcommand: UserCommand, config: Config) {
+    match subcommand.command {
+        User::Create(opts) => create_user(opts, config).await,
+        User::Reset(opts) => reset_user(opts, config).await,
+        User::List => list_users(config).await,
+    }
+}
+
+async fn create_user(opts: Create, config: Config) {
     let nickname = opts.nickname;
     let token = users::generate_token();
 
-    User::create(&config.db_pool, &nickname, &token)
+    users::User::create(&config.db_pool, &nickname, &token)
         .await
         .expect("Database error--failed to create user.");
 
@@ -17,8 +25,8 @@ pub async fn create_user(opts: Create, config: Config) {
     );
 }
 
-pub async fn reset_user(opts: Reset, config: Config) {
-    let user = match User::from_id(&config.db_pool, opts.user_id).await {
+async fn reset_user(opts: Reset, config: Config) {
+    let user = match users::User::from_id(&config.db_pool, opts.user_id).await {
         Some(user) => user,
         None => {
             println!("No user found with ID {}.", opts.user_id);
@@ -41,8 +49,8 @@ pub async fn reset_user(opts: Reset, config: Config) {
     );
 }
 
-pub async fn list_users(config: Config) {
-    let users = User::all(&config.db_pool)
+async fn list_users(config: Config) {
+    let users = users::User::all(&config.db_pool)
         .await
         .expect("Database error--failed querying users.");
 

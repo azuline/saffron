@@ -1,13 +1,18 @@
+use crate::models::Session;
 use crate::webserver::responder::Template;
-use actix_web::{get, Responder};
+use actix_identity::Identity;
+use actix_web::{get, Either, HttpResponse};
 use tera::Context;
 
-#[get("/")]
-async fn index() -> Template {
-    Template("index.html", Context::new())
-}
+type Response = Either<Template, HttpResponse>;
 
-#[get("/login")]
-async fn login() -> impl Responder {
-    Template("login.html", Context::new())
+#[get("/")]
+async fn index(id: Identity) -> Response {
+    if let Some(user) = Session::parse(&id) {
+        let mut context = Context::new();
+        context.insert("user", &user);
+        return Either::A(Template("index.html", context));
+    };
+
+    Either::B(HttpResponse::Found().header("Location", "/login").finish())
 }

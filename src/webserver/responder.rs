@@ -21,7 +21,7 @@ impl Template {
     pub fn render(self, tmpl: &Data<Tera>) -> Result<HttpResponse, actix_web::Error> {
         match tmpl.render(self.0, &self.1) {
             Ok(html) => Ok(HttpResponse::Ok().content_type("text/html").body(html)),
-            _ => Err(ErrorInternalServerError("Template error.")),
+            Err(e) => Err(ErrorInternalServerError(format!("Template error: {}", e))),
         }
     }
 }
