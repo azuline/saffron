@@ -1,3 +1,4 @@
 /target
 /views/node_modules
 /views/static/index.css
+/.env

@@ -12,6 +12,29 @@ pub struct User {
 }
 
 impl User {
+    pub async fn all(db_pool: &SqlitePool) -> Result<Vec<User>, sqlx::Error> {
+        sqlx::query(
+            r#"
+                SELECT
+                    id,
+                    nickname,
+                    token_prefix,
+                    token_hash,
+                    csrf_token
+                FROM users
+            "#,
+        )
+        .map(|row: SqliteRow| User {
+            id: row.get(0),
+            nickname: row.get(1),
+            token_prefix: row.get(2),
+            token_hash: row.get(3),
+            csrf_token: row.get(4),
+        })
+        .fetch_all(db_pool)
+        .await
+    }
+
     pub async fn from_id(db_pool: &SqlitePool, id: i64) -> Option<User> {
         sqlx::query(
             r#"
