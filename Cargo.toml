@@ -12,7 +12,7 @@ actix-files = "0.4.1"
 actix-identity = "0.3.1"
 actix-multipart = "0.3.0"
 clap = "3.0.0-beta.2"
-sqlx = { version = "0.4.0", features = ["runtime-actix-native-tls", "sqlite", "migrate"] }
+sqlx = { version = "0.4.0", features = ["runtime-actix-native-tls", "sqlite", "migrate", "chrono"] }
 tera = "1"
 dotenv = "0.15.0"
 openssl = "0.10.30"

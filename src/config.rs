@@ -29,8 +29,13 @@ impl Config {
             .await
             .unwrap();
 
-        let host_url =
+        let raw_host_url =
             env::var("HOST_URL").expect("Host URL not configured in `.env` file.");
+
+        let host_url = match raw_host_url.strip_suffix("/") {
+            Some(host_url) => host_url.to_owned(),
+            _ => raw_host_url,
+        };
 
         migrate!("./migrations").run(&db_pool).await.unwrap();
 
