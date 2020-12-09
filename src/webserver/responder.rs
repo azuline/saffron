@@ -8,7 +8,7 @@ pub struct Template(pub &'static str, pub Context);
 
 impl Responder for Template {
     type Error = Error;
-    type Future = Ready<Result<HttpResponse, Error>>;
+    type Future = Ready<Result<HttpResponse, actix_web::Error>>;
 
     fn respond_to(self, req: &HttpRequest) -> Self::Future {
         let tmpl = req.app_data::<Data<Tera>>().unwrap();
@@ -18,7 +18,7 @@ impl Responder for Template {
 }
 
 impl Template {
-    pub fn render(self, tmpl: &Data<Tera>) -> Result<HttpResponse, Error> {
+    pub fn render(self, tmpl: &Data<Tera>) -> Result<HttpResponse, actix_web::Error> {
         match tmpl.render(self.0, &self.1) {
             Ok(html) => Ok(HttpResponse::Ok().content_type("text/html").body(html)),
             _ => Err(ErrorInternalServerError("Template error.")),

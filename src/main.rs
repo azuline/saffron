@@ -7,6 +7,7 @@ use fragrance::webserver;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
+    sodiumoxide::init().unwrap();
 
     let commands: Commands = Commands::parse();
     let config: Config = Config::read().await;

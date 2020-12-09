@@ -19,3 +19,5 @@ futures = "0.3.8"
 sqlx = { version = "0.4.0", features = ["runtime-actix-native-tls", "sqlite", "migrate"] }
 dotenv = "0.15.0"
 openssl = "0.10.30"
+sodiumoxide = "0.2.5"
+hex = "0.4.2"

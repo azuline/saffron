@@ -1,19 +1,14 @@
 use openssl::rand::rand_bytes;
-use sqlx::{sqlite::SqliteRow, FromRow, Row, SqlitePool};
-
-#[derive(FromRow)]
-struct SecretKey {
-    key: Vec<u8>,
-}
+use sqlx::{sqlite::SqliteRow, Row, SqlitePool};
 
 pub async fn get_or_create(db_pool: &SqlitePool) -> Vec<u8> {
     let result = sqlx::query(r#"SELECT key FROM secret_key LIMIT 1"#)
-        .map(|row: SqliteRow| SecretKey { key: row.get(0) })
+        .map(|row: SqliteRow| row.get(0))
         .fetch_one(db_pool)
         .await;
 
-    if let Ok(secret_key) = result {
-        return secret_key.key;
+    if let Ok(key) = result {
+        return key;
     }
 
     // We failed to fetch the key from the database; create a new one
