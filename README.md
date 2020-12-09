@@ -7,6 +7,8 @@ A little private file hosting service.
 - [Development](#development)
 - [License](#license)
 
+TODO: Clean up this README.
+
 ## Installation
 
 TODO. Probably publish on `crates.io`. And create a Dockerfile.
@@ -35,6 +37,14 @@ SUBCOMMANDS:
     user     Users and token management
 ```
 
+### Uploading
+
+With cURL:
+
+```sh
+$ curl -v -X POST -H "Content-Type:multipart/form-data" -H"Authorization:Token <token>" -F "upload=@<filepath>" https://image.host/upload
+```
+
 ## Development
 
 Database stuff requires `sqlx-cli`:
@@ -51,14 +61,17 @@ developer commands.
 - File upload route using Token header.
 - Get error pages working (incl. on static routes...).
 - Publish to crates.io.
-- Consider streaming files instead of serving them statically.
 - Gallery frontend view!
 - Image thumbnailing for gallery.
 - Create a Dockerfile.
+- File deletion.
+
+- CSRF protection? If the frontend ever has more endpoints than just
+  login/logout, probably worth implementing.
 
 wrt. crates.io, we'll need a way to include the built CSS, but I don't want to
 check it into VCS because dev-version CSS would override it. Perhaps a CI to
-ensure that CSS is prod css?
+ensure that CSS is prod CSS?
 
 ## License
 

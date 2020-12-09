@@ -987,29 +987,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "saffron"
-version = "0.1.0"
-dependencies = [
- "actix-files",
- "actix-identity",
- "actix-multipart",
- "actix-web",
- "base64 0.13.0",
- "clap",
- "dotenv",
- "env_logger",
- "futures",
- "hex",
- "log",
- "openssl",
- "serde",
- "serde_json",
- "sodiumoxide",
- "sqlx",
- "tera",
-]
-
-[[package]]
 name = "fuchsia-zircon"
 version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2070,6 +2047,30 @@ name = "ryu"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
+
+[[package]]
+name = "saffron"
+version = "0.1.0"
+dependencies = [
+ "actix-files",
+ "actix-identity",
+ "actix-multipart",
+ "actix-web",
+ "base64 0.13.0",
+ "chrono",
+ "clap",
+ "dotenv",
+ "env_logger",
+ "futures",
+ "hex",
+ "log",
+ "openssl",
+ "serde",
+ "serde_json",
+ "sodiumoxide",
+ "sqlx",
+ "tera",
+]
 
 [[package]]
 name = "same-file"

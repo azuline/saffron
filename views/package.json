@@ -1,10 +1,10 @@
 {
-  "name": "sunset-glow",
+  "name": "saffron",
   "version": "1.0.0",
-  "description": "personal site",
+  "description": "saffron",
   "main": "index.html",
-  "repository": "git@github.com:azuline/site.git",
-  "author": "azuline <azuline@riseup.net>",
+  "repository": "git@github.com:azuline/saffron.git",
+  "author": "blissful <blissful@sunsetglow.net>",
   "license": "Apache-2.0",
   "private": false,
   "dependencies": {

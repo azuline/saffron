@@ -1,15 +1,15 @@
+use chrono::naive::NaiveDateTime;
 use openssl::{memcmp, rand::rand_bytes};
 use serde::Serialize;
 use sodiumoxide::crypto::pwhash::argon2id13;
 use sqlx::{sqlite::SqliteRow, FromRow, Row, SqlitePool};
 
 #[derive(FromRow, Serialize, Debug)]
-pub struct User {
+pub struct File {
     pub id: i64,
-    pub nickname: String,
-    pub token_prefix: Vec<u8>,
-    pub token_hash: Vec<u8>,
-    pub csrf_token: Vec<u8>,
+    pub filename: String,
+    pub uploader_id: i64,
+    pub uploaded_on: NaiveDateTime,
 }
 
 impl User {
