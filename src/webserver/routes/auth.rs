@@ -45,7 +45,7 @@ pub async fn take_login(
     let mut context = Context::new();
     context.insert("message", "Invalid authorization token.");
 
-    return Either::A(Template("login.html", context));
+    Either::A(Template("login.html", context))
 }
 
 #[post("/logout")]

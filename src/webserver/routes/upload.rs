@@ -93,7 +93,6 @@ async fn save_field_to_file<'a>(
     mut field: Field,
     filepath: PathBuf,
 ) -> Result<(), actix_web::Error> {
-    dbg!(&filepath);
     let mut f = web::block(|| std::fs::File::create(filepath))
         .await
         .unwrap();

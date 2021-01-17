@@ -4,7 +4,7 @@ use crate::config::Config;
 use actix_files as fs;
 use actix_identity::{CookieIdentityPolicy, IdentityService};
 use actix_web::{cookie::SameSite, middleware::Logger};
-use actix_web::{App, HttpServer};
+use actix_web::{web, App, HttpServer};
 use env_logger::Env;
 use tera::Tera;
 
@@ -39,6 +39,8 @@ pub async fn start(opts: Start, config: Config) -> std::io::Result<()> {
             .service(routes::take_login)
             .service(routes::take_logout)
             .service(routes::take_upload)
+            .service(routes::error_404)
+            .default_service(web::route().to(routes::redirect_404))
     })
     .bind(bind_addr)?
     .run()

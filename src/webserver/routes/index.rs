@@ -28,7 +28,5 @@ async fn index(id: Identity, config: Data<Config>) -> Response {
     context.insert("user", &session);
     context.insert("files", &files);
 
-    dbg!(&context);
-
-    return Either::A(Template("index.html", context));
+    Either::A(Template("index.html", context))
 }
