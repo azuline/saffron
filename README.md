@@ -87,18 +87,11 @@ Developing the views requires `yarn`, in order to build TailwindCSS. Running
 ## TODO
 
 - Set a maximum upload file size.
-- Get error pages working (incl. on static routes...).
-- Publish to crates.io.
 - Gallery frontend view!
 - Image thumbnailing for gallery.
 - Create a Dockerfile.
 - File deletion.
-- CSRF protection? If the frontend ever has more endpoints than just
-  login/logout, probably worth implementing.
-
-wrt. crates.io, we'll need a way to include the built CSS, but I don't want to
-check it into VCS because dev-version CSS would override it. Perhaps a CI to
-ensure that CSS is prod CSS?
+  - CSRF protection.
 
 ## License
 
