@@ -72,6 +72,7 @@ impl File {
                     uploaded_on
                 FROM files
                 WHERE uploader_id = $1
+                ORDER BY id DESC
             "#,
         )
         .bind(user_id)
