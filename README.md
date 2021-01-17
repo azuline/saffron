@@ -24,7 +24,19 @@ $ yarn install
 $ yarn build
 $ cd ..
 $ cargo build --release
-$ ./target/release/saffron  # Add/move this binary to PATH if you wish.
+$ ./target/release/saffron user create <username>
+$ ./target/release/saffron start
+```
+
+### Docker
+
+Alternatively, one can use docker with the provided `Dockerfile`.
+
+```sh
+$ cd saffron
+$ docker build -t saffron .
+$ docker run -e HOST_URL="https://image.host/" saffron user create <username>
+$ docker run -e HOST_URL="https://image.host/" -dp 8000:8000 saffron start -h 0.0.0.0
 ```
 
 ## Configuration
@@ -48,13 +60,6 @@ The directory to store uploaded files in.
 
 The URL of the server. Used to create the file URL in JSON responses to upload
 requests.
-
-## Usage
-
-- Run `saffron user create <username>` to add a user.
-- Run `saffron start` to start the webserver.
-
-To explore the CLI, run `saffron help`.
 
 ### Uploading Files
 
@@ -86,13 +91,11 @@ Developing the views requires `yarn`, in order to build TailwindCSS. Running
 
 ## TODO
 
-- Set a maximum upload file size.
 - Gallery frontend view!
 - Image thumbnailing for gallery.
-- Create a Dockerfile.
 - File deletion.
   - CSRF protection.
-- Clean up error handling abstractions.
+- Clean up... this really is a terrible mess with Actix.
 
 ## License
 

@@ -1,0 +1,5 @@
+/target/
+/Dockerfile
+/views/node_modules/
+/views/static/index.css
+/.git
