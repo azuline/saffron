@@ -81,7 +81,7 @@ $ cargo install --version=0.2.0 sqlx-cli --no-default-features --features sqlite
 ```
 
 Developing the views requires `yarn`, in order to build TailwindCSS. Running
-`yarn` install inside `views/` will set up the environment. See
+`yarn install` inside `views/` will set up the environment. See
 `views/package.json` for some helper commands.
 
 ## TODO
@@ -92,6 +92,7 @@ Developing the views requires `yarn`, in order to build TailwindCSS. Running
 - Create a Dockerfile.
 - File deletion.
   - CSRF protection.
+- Clean up error handling abstractions.
 
 ## License
 

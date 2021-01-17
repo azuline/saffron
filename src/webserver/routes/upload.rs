@@ -6,6 +6,7 @@ use std::path::{Path, PathBuf};
 use crate::config::Config;
 use crate::models::{File, User};
 use actix_multipart::{Field, Multipart};
+use actix_web::error::ErrorInternalServerError;
 use actix_web::http::{header, HeaderMap};
 use actix_web::{post, web, web::Data, HttpRequest, HttpResponse};
 use futures::{StreamExt, TryStreamExt};
@@ -29,10 +30,6 @@ pub async fn take_upload(
     // discover the file extension, and then continue to process
     // the rest.
 
-    // TODO: If this file upload fails, can we remove the existing written
-    // shit from disk? This means not using ? but explicitly catching
-    // and wiping file from disk.
-
     let mut filepath = config.upload_dir.clone();
     filepath.push(get_random_basename());
 
@@ -46,12 +43,20 @@ pub async fn take_upload(
             filepath.set_extension(ext);
         }
 
-        save_field_to_file(field, filepath.clone()).await?;
+        // If file upload fails, remove file from disk.
+        if let Err(e) = save_field_to_file(field, filepath.clone()).await {
+            std::fs::remove_file(filepath)?;
+            return Err(e);
+        }
     }
 
     // Iterate over and save the rest of the chunks.
     while let Ok(Some(field)) = payload.try_next().await {
-        save_field_to_file(field, filepath.clone()).await?;
+        // If file upload fails, remove file from disk.
+        if let Err(e) = save_field_to_file(field, filepath.clone()).await {
+            std::fs::remove_file(filepath)?;
+            return Err(e);
+        }
     }
 
     // Now, create the file row in database and get our ID, in preparation
@@ -59,10 +64,9 @@ pub async fn take_upload(
 
     let filename = filepath.file_name().unwrap().to_str().unwrap();
 
-    let file = match File::create(&config.db_pool, &filename, user.id).await {
-        Ok(file) => file,
-        _ => return Ok(HttpResponse::InternalServerError().finish()),
-    };
+    let file = File::create(&config.db_pool, &filename, user.id)
+        .await
+        .map_err(ErrorInternalServerError)?;
 
     let response = json!({
         "image_url": format!("{}/f/{}", &config.host_url, &filename),
@@ -98,8 +102,7 @@ async fn save_field_to_file<'a>(
         .unwrap();
 
     while let Some(chunk) = field.next().await {
-        let data = chunk.unwrap();
-
+        let data = chunk.map_err(ErrorInternalServerError)?;
         f = web::block(move || f.write_all(&data).map(|_| f)).await?;
     }
 
