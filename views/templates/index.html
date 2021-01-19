@@ -9,8 +9,7 @@
       <a href="/f/{{ file.filename }}">{{ file.filename }}</a>
     </div>
     <div class="flex-none ml-auto">
-      <span>on</span>
-      <span class="ml-2">{{ file.uploaded_on }}</span>
+      <span class="ml-2">{{ file.uploaded_on | date(format="on %b %d, %Y at %H:%M:%S") }}</span>
     </div>
   </div>
   {% endfor %}

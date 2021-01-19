@@ -33,6 +33,7 @@ pub struct UserCommand {
 pub enum User {
     Create(Create),
     Reset(Reset),
+    #[clap(about = "List users")]
     List,
 }
 
