@@ -1,0 +1,28 @@
+{% if num_pages != 1 %}
+<div class="relative flex justify-center py-4 mx-auto w-none">
+  {% if cur_page != 1 %}
+  <div class="absolute mr-8 right-2/4">
+    <a href="{{ request_path }}?page={{ cur_page - 1 }}">Previous Page</a>
+  </div>
+  {% endif %}
+  <div class="w-10">
+    <select
+      class="w-full"
+      onchange="window.location=`{{ request_path }}?page=${this.options[this.selectedIndex].value}`"
+    >
+        {% for i in range(start=1, end=num_pages + 1) %}
+        {% if i == cur_page %}
+          <option value="{{ i }}" selected="selected">{{ i }}</option>
+        {% else %}
+          <option value="{{ i }}">{{ i }}</option>
+        {% endif %}
+        {% endfor %}
+    </select> 
+  </div>
+  {% if cur_page != num_pages %}
+  <div class="absolute ml-8 left-2/4">
+    <a href="{{ request_path }}?page={{ cur_page + 1 }}">Next Page</a>
+  </div>
+  {% endif %}
+</div>
+{% endif %}

@@ -62,6 +62,8 @@ impl File {
     pub async fn all_of_user(
         db_pool: &SqlitePool,
         user_id: i64,
+        page: i64,
+        per_page: i64,
     ) -> Result<Vec<Self>, sqlx::Error> {
         sqlx::query(
             r#"
@@ -73,9 +75,13 @@ impl File {
                 FROM files
                 WHERE uploader_id = $1
                 ORDER BY id DESC
+                LIMIT $2
+                OFFSET $3
             "#,
         )
         .bind(user_id)
+        .bind(per_page)
+        .bind((page - 1) * per_page)
         .map(|row: SqliteRow| File {
             id: row.get(0),
             filename: row.get(1),
@@ -83,6 +89,20 @@ impl File {
             uploaded_on: row.get(3),
         })
         .fetch_all(db_pool)
+        .await
+    }
+
+    pub async fn count(db_pool: &SqlitePool, user_id: i64) -> Result<i64, sqlx::Error> {
+        sqlx::query(
+            r#"
+                SELECT COUNT(1)
+                FROM files
+                WHERE uploader_id = $1
+            "#,
+        )
+        .bind(user_id)
+        .map(|row: SqliteRow| row.get(0))
+        .fetch_one(db_pool)
         .await
     }
 

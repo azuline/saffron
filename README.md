@@ -91,8 +91,6 @@ Developing the views requires `yarn`, in order to build TailwindCSS. Running
 
 ## TODO
 
-- Gallery frontend view!
-- Image thumbnailing for gallery.
 - File deletion.
   - CSRF protection.
 - Clean up... this really is a terrible mess with Actix.
