@@ -15,6 +15,7 @@ RUN cd views/ && yarn install && yarn build
 RUN cargo build --release
 
 RUN mkdir /appdata
-RUN echo 'DATABASE_URI=sqlite:///appdata/db.sqlite3\nUPLOAD_DIRECTORY=/appdata/files' > .env
+RUN echo 'DATABASE_URI=sqlite:///appdata/db.sqlite3\n\
+UPLOAD_DIRECTORY=/appdata/files' > .env
 
 ENTRYPOINT ["/app/target/release/saffron"]

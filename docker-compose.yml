@@ -1,0 +1,13 @@
+version: '3'
+services:
+  server:
+    build: .
+    command: start
+    ports:
+      - "127.0.0.1:8080:8000"
+    volumes:
+      - data:/appdata
+    environment:
+      - HOST_URL=http://localhost:8000
+volumes:
+  data:
