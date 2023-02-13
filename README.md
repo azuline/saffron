@@ -15,13 +15,13 @@ A little private file hosting service.
 As of now, cloning the repository and running `cargo build` is the only method
 of installation.
 
-The frontend CSS must also be built, which requires `yarn`.
+The frontend CSS must also be built, which requires `pnpm`.
 
 ```sh
 $ cd saffron
 $ cd views
-$ yarn install
-$ yarn build
+$ pnpm install
+$ pnpm build
 $ cd ..
 $ cargo build --release
 $ ./target/release/saffron user create <username>
@@ -85,8 +85,8 @@ Developing database stuff requires `sqlx-cli`:
 $ cargo install --version=0.2.0 sqlx-cli --no-default-features --features sqlite
 ```
 
-Developing the views requires `yarn`, in order to build TailwindCSS. Running
-`yarn install` inside `views/` will set up the environment. See
+Developing the views requires `pnpm`, in order to build TailwindCSS. Running
+`pnpm install` inside `views/` will set up the environment. See
 `views/package.json` for some helper commands.
 
 ## TODO

@@ -1,17 +1,16 @@
 FROM rust:1.49-buster as builder
 
 WORKDIR /app
-COPY . .
 
 # Install deps.
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update
-RUN apt-get install -y yarn
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
+    && curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+
+COPY . .
 
 # Compile application.
-RUN cd views/ && yarn install && yarn build
+RUN cd views/ && pnpm install && pnpm build
 RUN cargo build --release
 
 RUN mkdir /appdata

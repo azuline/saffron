@@ -1,11 +1,10 @@
 {
   "name": "saffron",
-  "version": "1.0.0",
-  "description": "saffron",
+  "version": "0.1.0",
   "main": "index.html",
   "repository": "git@github.com:azuline/saffron.git",
   "author": "blissful <blissful@sunsetglow.net>",
-  "license": "Apache-2.0",
+  "license": "AGPL-3.0",
   "private": false,
   "dependencies": {
     "autoprefixer": "^9.8.6",
