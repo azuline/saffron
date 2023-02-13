@@ -2,3 +2,5 @@
 /views/node_modules
 /views/static/index.css
 /.env
+
+.direnv
