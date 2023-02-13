@@ -34,11 +34,10 @@
       in
       rec {
         packages = {
-          saffron = pkgs.rustPlatform.buildRustPackage {
+          saffron = naersk'.buildPackage {
             pname = "saffron";
             version = "0.1.0";
             src = ./.;
-            cargoLock.lockFile = ./Cargo.lock;
             nativeBuildInputs = with pkgs; [ pkg-config openssl.dev ];
             buildInputs = with pkgs; [ openssl openssl.dev rust ];
             OPENSSL_DIR = pkgs.openssl.dev;
