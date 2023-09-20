@@ -18,7 +18,7 @@
         };
         naersk' = pkgs.callPackage naersk { };
         nodejs = pkgs.nodejs-19_x;
-        rust = pkgs.rust-bin.stable.latest.default;
+        rust = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
         nodeDeps = (pkgs.callPackage ./views { }).nodeDependencies;
         tailwind-styles = pkgs.stdenv.mkDerivation {
           name = "tailwind-styles";
@@ -37,11 +37,8 @@
           saffron = naersk'.buildPackage {
             pname = "saffron";
             version = "0.1.0";
-            src = ./.;
+            root = ./.;
             nativeBuildInputs = with pkgs; [ pkg-config openssl.dev ];
-            buildInputs = with pkgs; [ openssl openssl.dev rust ];
-            OPENSSL_DIR = pkgs.openssl.dev;
-            PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
             preInstall = ''
               cp ${tailwind-styles}/index.css $src/views/static/index.css
             '';
@@ -71,9 +68,15 @@
                 nodejs
                 node2nix
                 nodeDeps
+                openssl.dev
+                pkg-config
               ];
             })
           ];
+          shellHook = ''
+            export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig"
+            export OPENSSL_DIR="${pkgs.openssl.dev}"
+          '';
         };
       }
     );
