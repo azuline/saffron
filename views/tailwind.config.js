@@ -1,10 +1,14 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  purge: ["templates/*.html"],
-  darkMode: false, // or 'media' or 'class'
+  content: ["templates/*.html"],
   theme: {
-    colors: { ...colors, blue: colors.cyan },
+    colors: {
+      black: colors.black,
+      white: colors.white,
+      gray: colors.slate,
+      blue: colors.cyan,
+    },
     extend: {
       spacing: {
         full: "100%",
